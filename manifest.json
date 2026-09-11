@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "Pasquali",
+  "version": "1.0.0",
+  "description": "Corretor gráfico para Português BR e Alemão — acentos, cedilha, Umlaut, Eszett",
+  "permissions": ["storage", "tabs"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background/service_worker.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["rules/pt_BR.js", "rules/de_DE.js", "content/content.js"],
+      "css": ["content/content.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": "icons/icon.svg"
+  },
+  "icons": {
+    "16": "icons/icon.svg",
+    "48": "icons/icon.svg",
+    "128": "icons/icon.svg"
+  }
+}

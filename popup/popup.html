@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Pasquali</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup">
+    <header>
+      <div class="logo">P´</div>
+      <h1>Pasquali</h1>
+      <label class="toggle" title="Ativar / desativar">
+        <input type="checkbox" id="enabled">
+        <span class="slider"></span>
+      </label>
+    </header>
+
+    <section class="languages" id="lang-section">
+      <p class="section-label">Idiomas ativos</p>
+      <label class="lang-option">
+        <input type="checkbox" id="pt_BR">
+        <span class="flag">🇧🇷</span>
+        <span>Português (BR)</span>
+      </label>
+      <label class="lang-option">
+        <input type="checkbox" id="de_DE">
+        <span class="flag">🇩🇪</span>
+        <span>Deutsch</span>
+      </label>
+    </section>
+
+    <footer>
+      <span id="status-msg">Carregando…</span>
+    </footer>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
