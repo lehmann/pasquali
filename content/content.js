@@ -11,10 +11,90 @@ const SKIP_TAGS = new Set(['SCRIPT', 'STYLE', 'CODE', 'PRE', 'KBD', 'SAMP', 'MAT
 
 // ── Dictionary ────────────────────────────────────────────────────────────────
 
+// Keys where stripping ae→a / oe→o / ue→u would produce a different valid German word.
+const DE_UMLAUT_EXPANSION_SKIP = new Set([
+  // ae→a conflicts
+  'andern',   // andere (pl dative)
+  'backt',    // alt. form of bäckt
+  'bar',      // Bar = pub/cash
+  'bewahren', // bewahren = to preserve (vs. bewähren)
+  'brat',     // imperative of braten
+  'fahrt',    // Fahrt = journey
+  'fallt',    // ihr fallt = 2nd pl of fallen
+  'halt',     // Halt = stop!
+  'hatte',    // hatte = had (vs. hätte)
+  'hatten',   // hatten = had (pl)
+  'hattest',  // hattest = had (2nd sg)
+  'kamen',    // kamen = came
+  'kalte',    // kalte = cold (adj)
+  'kalter',   // kalter = cold (adj)
+  'lange',    // lange = long (adv)
+  'langer',   // langer = long (adj form)
+  'lasst',    // ihr lasst = 2nd pl of lassen
+  'lauft',    // lauft = 2nd pl of laufen
+  'nahmen',   // nahmen = took (pl)
+  'naher',    // naher = near (Naher Osten)
+  'rat',      // Rat = council
+  'schlaft',  // ihr schlaft
+  'schlagt',  // ihr schlagt
+  'starke',   // starke = strong (adj)
+  'starker',  // starker = strong (adj)
+  'taten',    // Taten = deeds (pl of Tat)
+  'tragt',    // ihr tragt
+  'vater',    // Vater = father (sg)
+  'wachst',   // ihr wachst
+  'wahlen',   // Wahlen = elections
+  'ware',     // Ware = goods
+  'waren',    // waren = were / Waren = goods
+  'warst',    // warst = were (2nd sg)
+  'wascht',   // ihr wascht
+  // oe→o conflicts
+  'hohe',     // hohe = high (adj, vs. Höhe = height)
+  'hoher',    // hoher = high (adj, vs. höher = higher)
+  'hohle',    // hohle = hollow (adj, vs. Höhle = cave)
+  'konnte',   // konnte = could (past, vs. könnte)
+  'konnten',  // konnten = could (past pl)
+  'konntest', // konntest = could (past 2nd sg)
+  'losung',   // Losung = slogan/password
+  'losungen', // Losungen
+  'mochte',   // mochte = liked (past, vs. möchte)
+  'mochten',  // mochten = liked (past pl)
+  'mochtest', // mochtest
+  'schon',    // schon = already
+  'schone',   // schone = spare/protect (verb)
+  'tochter',  // Tochter = daughter (sg, vs. Töchter pl)
+  'vogel',    // Vogel = bird (sg, vs. Vögel pl)
+  'volker',   // Volker = German given name
+  // ue→u conflicts
+  'durfte',   // durfte = was allowed (past, vs. dürfte)
+  'durften',  // durften = were allowed (past pl)
+  'fuhren',   // fuhren = drove (past pl, vs. führen)
+  'musste',   // musste = had to (past, vs. müsste)
+  'mussten',  // mussten = had to (past pl)
+  'mutter',   // Mutter = mother (sg, vs. Mütter pl)
+  'stuck',    // Stuck = stucco (vs. Stück = piece)
+  'wurde',    // wurde = became (past, vs. würde)
+  'wurden',   // wurden = became (past pl)
+  'wurdest',  // wurdest = became (2nd sg past)
+  'wust',     // Wust = chaos/mess (vs. wüst)
+]);
+
+function expandDeUmlautVariants() {
+  for (const [key, value] of Object.entries(PASQUALI_DE_DE)) {
+    const stripped = key.replace(/ae/g, 'a').replace(/oe/g, 'o').replace(/ue/g, 'u');
+    if (stripped !== key && !dictionary[stripped] && !DE_UMLAUT_EXPANSION_SKIP.has(stripped)) {
+      dictionary[stripped] = value;
+    }
+  }
+}
+
 function buildDictionary() {
   dictionary = {};
   if (activeLanguages.includes('pt_BR')) Object.assign(dictionary, PASQUALI_PT_BR);
-  if (activeLanguages.includes('de_DE')) Object.assign(dictionary, PASQUALI_DE_DE);
+  if (activeLanguages.includes('de_DE')) {
+    Object.assign(dictionary, PASQUALI_DE_DE);
+    expandDeUmlautVariants();
+  }
 }
 
 function normalize(word) {
