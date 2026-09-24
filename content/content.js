@@ -123,17 +123,90 @@ function lookupWord(word) {
 // correction still works via Selection + execCommand).
 
 function isFrameworkManaged(el) {
-  return Object.keys(el).some(k =>
-    k.startsWith('__reactFiber$') ||
-    k.startsWith('__reactProps$') ||
-    k.startsWith('__reactEvents$') ||
-    k.startsWith('_vei') ||          // Vue 3
-    k.startsWith('__vue')            // Vue 2
-  );
+  // Lexical editor: sets data-lexical-editor on the CE root.
+  if (el.hasAttribute('data-lexical-editor')) return true;
+
+  // Rich-text editors (Lexical, Draft.js, ProseMirror, TipTap, Quill …) structure
+  // paragraphs as block children (div, p) of the CE root. Plain contenteditables
+  // have only text nodes, <br>, and inline elements — never block children.
+  if (el.querySelector(':scope > div, :scope > p')) return true;
+
+  // React/Vue may attach fiber/vnode keys to a wrapper ancestor rather than
+  // the CE element itself — walk up a few levels to catch that.
+  let node = el;
+  for (let i = 0; i < 5 && node && node !== document.documentElement; i++) {
+    if (Object.keys(node).some(k =>
+      k.startsWith('__reactFiber$') ||
+      k.startsWith('__reactProps$') ||
+      k.startsWith('__reactEvents$') ||
+      k.startsWith('_vei') ||        // Vue 3
+      k.startsWith('__vue')          // Vue 2
+    )) return true;
+    node = node.parentElement;
+  }
+  return false;
 }
 
 // WeakSet of elements where span injection is safe (not framework-managed).
 const injectSafeElements = new WeakSet();
+
+// ── CSS Highlight API (framework-managed editors) ─────────────────────────────
+// Highlights words without touching the DOM — no caret disruption, no
+// framework reconciliation conflicts. Supported in Chrome 105+.
+
+const frameworkRoots = new Set();
+let cssHighlightTimer = null;
+
+function rebuildCSSHighlights() {
+  if (!CSS.highlights) return;
+  const ranges = [];
+  for (const root of frameworkRoots) {
+    if (!root.isConnected) { frameworkRoots.delete(root); continue; }
+    if (!isEnabled) continue;
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        let el = node.parentElement;
+        while (el && el !== root) {
+          if (SKIP_TAGS.has(el.tagName)) return NodeFilter.FILTER_REJECT;
+          el = el.parentElement;
+        }
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    let node;
+    while ((node = walker.nextNode())) {
+      const text = node.textContent;
+      const wordRe = /\p{L}+/gu;
+      let match;
+      while ((match = wordRe.exec(text)) !== null) {
+        if (lookupWord(match[0])) {
+          const range = new Range();
+          range.setStart(node, match.index);
+          range.setEnd(node, match.index + match[0].length);
+          ranges.push(range);
+        }
+      }
+    }
+  }
+  if (ranges.length > 0) {
+    CSS.highlights.set('pasquali-correction', new Highlight(...ranges));
+  } else {
+    CSS.highlights.delete('pasquali-correction');
+  }
+}
+
+function debouncedCSSHighlight(delay = 900) {
+  clearTimeout(cssHighlightTimer);
+  cssHighlightTimer = setTimeout(rebuildCSSHighlights, delay);
+}
+
+function setupFrameworkElement(el) {
+  if (frameworkRoots.has(el)) return;
+  frameworkRoots.add(el);
+  if (!CSS.highlights) return;
+  el.addEventListener('input', () => debouncedCSSHighlight());
+  el.addEventListener('focus', () => debouncedCSSHighlight(300));
+}
 
 // ── Cursor save / restore ────────────────────────────────────────────────────
 
@@ -353,7 +426,18 @@ function hasCorrectableContent(root) {
 function scanContentEditable(root) {
   if (!isEnabled || !root.isConnected) return;
   if (isMenuOpen()) return;
-  if (!injectSafeElements.has(root)) return; // framework-managed: skip injection
+  if (!injectSafeElements.has(root)) return;
+
+  // Lazy re-check: fiber keys and block children are attached after the element
+  // first appears, so setupElement() may have got it wrong. Never touch the DOM
+  // here — calling clearHighlights() / normalize() on a live framework editor
+  // triggers its reconciliation and corrupts the selection.
+  if (isFrameworkManaged(root)) {
+    injectSafeElements.delete(root);
+    setupFrameworkElement(root);  // migrate to CSS highlight path
+    debouncedCSSHighlight(100);
+    return;
+  }
 
   const hasHighlights = !!root.querySelector('.pasquali-highlight');
   if (!hasHighlights && !hasCorrectableContent(root)) return;
@@ -424,15 +508,15 @@ function setupElement(el) {
   setupElements.add(el);
 
   if (el.isContentEditable) {
-    // Determine if span injection is safe (element not managed by a framework).
     if (!isFrameworkManaged(el)) {
       injectSafeElements.add(el);
       el.addEventListener('input', () => { if (!isModifying) debouncedScan(el); });
       el.addEventListener('focus', () => { if (!isModifying) debouncedScan(el, 300); });
       el.addEventListener('blur',  () => { if (!isMenuOpen()) scanContentEditable(el); });
+    } else {
+      // Framework-managed: CSS Highlight API for visuals, right-click for corrections.
+      setupFrameworkElement(el);
     }
-    // Framework-managed elements (React/Vue): right-click still works via
-    // getWordAtCursorCE() + applyCECorrection(), no span injection needed.
   }
 }
 
@@ -557,7 +641,12 @@ function applySettings(settings) {
   isEnabled = settings.enabled ?? true;
   activeLanguages = settings.languages ?? ['pt_BR', 'de_DE'];
   buildDictionary();
-  if (!isEnabled) document.querySelectorAll('[contenteditable]').forEach(clearHighlights);
+  if (!isEnabled) {
+    document.querySelectorAll('[contenteditable]').forEach(clearHighlights);
+    if (CSS.highlights) CSS.highlights.delete('pasquali-correction');
+  } else {
+    rebuildCSSHighlights();
+  }
 }
 
 chrome.runtime.sendMessage({ type: 'GET_SETTINGS' }, settings => {

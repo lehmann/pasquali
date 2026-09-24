@@ -9,6 +9,12 @@
   background-color: rgba(255, 193, 7, 0.55);
 }
 
+/* Framework-managed editors (React/Lexical): highlight via CSS Highlight API
+   so we never touch the DOM. Only background-color is allowed here. */
+::highlight(pasquali-correction) {
+  background-color: rgba(255, 193, 7, 0.35);
+}
+
 #pasquali-menu {
   position: fixed;
   z-index: 2147483647;
