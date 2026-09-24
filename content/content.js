@@ -341,10 +341,22 @@ function processTextNode(textNode) {
   return true;
 }
 
+function hasCorrectableContent(root) {
+  const wordRe = /\p{L}+/gu;
+  let match;
+  while ((match = wordRe.exec(root.textContent)) !== null) {
+    if (lookupWord(match[0])) return true;
+  }
+  return false;
+}
+
 function scanContentEditable(root) {
   if (!isEnabled || !root.isConnected) return;
   if (isMenuOpen()) return;
   if (!injectSafeElements.has(root)) return; // framework-managed: skip injection
+
+  const hasHighlights = !!root.querySelector('.pasquali-highlight');
+  if (!hasHighlights && !hasCorrectableContent(root)) return;
 
   const caret = saveCaret(root);
   clearHighlights(root);
