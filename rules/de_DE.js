@@ -63,7 +63,6 @@ const PASQUALI_DE_DE = {
   "kaeme":                         "käme",
   "kaemen":                        "kämen",
   "kaempfen":                      "kämpfen",
-  "kampfer":                       "kämpfer",
   "kaempfer":                      "kämpfer",
   "laender":                       "länder",
   "laendlich":                     "ländlich",
@@ -119,7 +118,6 @@ const PASQUALI_DE_DE = {
   "waehler":                       "wähler",
   "waehlerin":                     "wählerin",
   "waende":                        "wände",
-  "wasche":                        "wäsche",
 
   // ── oe → ö ────────────────────────────────────────────────────────────────
   "boese":                         "böse",
@@ -782,5 +780,20 @@ const PASQUALI_DE_DE = {
 
   // ── Partial: ß+ä (a+ss instead of ae+ss) ─────────────────────────────────
   "gemass":                        "gemäß",
+
+};
+
+// Ambige Paare DE: die Form ohne Umlaut ist auch ein gültiges deutsches Wort
+// mit anderer Bedeutung. Kein Auto-Highlight — nur Rechtsklick-Vorschlag.
+const PASQUALI_DE_DE_AMBIGUOUS = {
+
+  // ── Verbform vs. Substantiv ───────────────────────────────────────────────────
+  "wasche":   "wäsche",   // ich wasche (Indikativ Präsens) ≠ Wäsche (Substantiv)
+  "kampfer":  "kämpfer",  // Kampfer (Campher / Heilpflanze) ≠ Kämpfer (Streiter)
+  "spule":    "spüle",    // Spule (Spule/Rolle) ≠ Spüle (Küchenspüle)
+
+  // ── Homographen mit Bedeutungsunterschied ────────────────────────────────────
+  "kur":      "kür",      // Kur (Kuraufenthalt/Heilkur) ≠ Kür (Kürübung/freestyle)
+  "note":     "nöte",     // Note (Note/Schulnote) ≠ Nöte (Pl. von Not; Schwierigkeiten)
 
 };

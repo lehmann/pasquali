@@ -49,8 +49,6 @@ const PASQUALI_PT_BR = {
   "unica":                         "única",
   "unicos":                        "únicos",
   "unicas":                        "únicas",
-  "publica":                       "pública",
-  "publico":                       "público",
   "publicas":                      "públicas",
   "publicos":                      "públicos",
   "basico":                        "básico",
@@ -61,16 +59,12 @@ const PASQUALI_PT_BR = {
   "tecnica":                       "técnica",
   "tecnicos":                      "técnicos",
   "tecnicas":                      "técnicas",
-  "especifico":                    "específico",
-  "especifica":                    "específica",
   "historico":                     "histórico",
   "historica":                     "histórica",
   "economico":                     "econômico",
   "economica":                     "econômica",
   "politico":                      "político",
   "politica":                      "política",
-  "medico":                        "médico",
-  "medica":                        "médica",
   "medicos":                       "médicos",
   "medicas":                       "médicas",
   "cientifico":                    "científico",
@@ -83,14 +77,10 @@ const PASQUALI_PT_BR = {
   "tipica":                        "típica",
   "dinamico":                      "dinâmico",
   "dinamica":                      "dinâmica",
-  "critico":                       "crítico",
-  "critica":                       "crítica",
   "estetico":                      "estético",
   "estetica":                      "estética",
   "dramatico":                     "dramático",
   "dramatica":                     "dramática",
-  "pratico":                       "prático",
-  "pratica":                       "prática",
   "praticos":                      "práticos",
   "praticas":                      "práticas",
   "etico":                         "ético",
@@ -161,9 +151,7 @@ const PASQUALI_PT_BR = {
   "fara":                          "fará",
   "sera":                          "será",
   "tera":                          "terá",
-  "ira":                           "irá",
   "dara":                          "dará",
-  "vira":                          "virá",
   "vera":                          "verá",
   "estara":                        "estará",
   "ficara":                        "ficará",
@@ -580,7 +568,6 @@ const PASQUALI_PT_BR = {
   "verao":                         "verão",
 
   // ── Substantivos com acento agudo e circunflexo ──────────────────────────
-  "pais":                          "país",
   "carater":                       "caráter",
   "nivel":                         "nível",
   "niveis":                        "níveis",
@@ -598,7 +585,6 @@ const PASQUALI_PT_BR = {
   "onus":                          "ônus",
   "bonus":                         "bônus",
   "abitus":                        "hábitus",
-  "habito":                        "hábito",
   "habitos":                       "hábitos",
   "bau":                           "baú",
   "saude":                         "saúde",
@@ -634,17 +620,12 @@ const PASQUALI_PT_BR = {
   "generos":                       "gêneros",
   "fenomeno":                      "fenômeno",
   "fenomenos":                     "fenômenos",
-  "numero":                        "número",
   "numeros":                       "números",
-  "modulo":                        "módulo",
   "modulos":                       "módulos",
-  "calculo":                       "cálculo",
   "calculos":                      "cálculos",
   "atomo":                         "átomo",
   "atomos":                        "átomos",
-  "animo":                         "ânimo",
   "ansia":                         "ânsia",
-  "ancora":                        "âncora",
   "ambito":                        "âmbito",
   "angulo":                        "ângulo",
   "angulos":                       "ângulos",
@@ -652,7 +633,6 @@ const PASQUALI_PT_BR = {
   "arbitros":                      "árbitros",
   "simbolo":                       "símbolo",
   "simbolos":                      "símbolos",
-  "credito":                       "crédito",
   "creditos":                      "créditos",
   "debito":                        "débito",
   "debitos":                       "débitos",
@@ -665,9 +645,7 @@ const PASQUALI_PT_BR = {
   "periodos":                      "períodos",
   "metodo":                        "método",
   "metodos":                       "métodos",
-  "musica":                        "música",
   "musicas":                       "músicas",
-  "titulo":                        "título",
   "titulos":                       "títulos",
   "topico":                        "tópico",
   "topicos":                       "tópicos",
@@ -726,7 +704,6 @@ const PASQUALI_PT_BR = {
   "pracas":                        "praças",
   "palacio":                       "palácio",
   "palacios":                      "palácios",
-  "comercio":                      "comércio",
   "comercios":                     "comércios",
   "exercicio":                     "exercício",
   "exercicios":                    "exercícios",
@@ -734,15 +711,11 @@ const PASQUALI_PT_BR = {
   "servicos":                      "serviços",
   "edificio":                      "edifício",
   "edificios":                     "edifícios",
-  "oficio":                        "ofício",
   "oficios":                       "ofícios",
-  "beneficio":                     "benefício",
   "beneficios":                    "benefícios",
   "maleficio":                     "malefício",
   "sacrificio":                    "sacrifício",
   "artificio":                     "artifício",
-  "indicio":                       "indício",
-  "vicio":                         "vício",
   "vicios":                        "vícios",
   "cartorio":                      "cartório",
   "territorio":                    "território",
@@ -750,11 +723,8 @@ const PASQUALI_PT_BR = {
   "territorios":                   "territórios",
   "seculo":                        "século",
   "seculos":                       "séculos",
-  "circulo":                       "círculo",
   "circulos":                      "círculos",
-  "estimulo":                      "estímulo",
   "estimulos":                     "estímulos",
-  "vinculo":                       "vínculo",
   "vinculos":                      "vínculos",
   "triangulo":                     "triângulo",
   "triangulos":                    "triângulos",
@@ -855,7 +825,6 @@ const PASQUALI_PT_BR = {
   "sabados":                       "sábados",
 
   // ── Meses e dias da semana ────────────────────────────────────────────────
-  "marco":                         "março",
   "terca":                         "terça",
 
   // ── Palavras comuns com cedilha ───────────────────────────────────────────
@@ -943,15 +912,12 @@ const PASQUALI_PT_BR = {
   "antiteses":                     "antíteses",
   "genese":                        "gênese",
   "geneses":                       "gêneses",
-  "diagnostico":                   "diagnóstico",
   "diagnosticos":                  "diagnósticos",
-  "pronostico":                    "prognóstico",
   "pronosticos":                   "prognósticos",
   "preco":                         "preço",
   "precos":                        "preços",
   "pagina":                        "página",
   "paginas":                       "páginas",
-  "capitulo":                      "capítulo",
   "capitulos":                     "capítulos",
   "paragrafo":                     "parágrafo",
   "paragrafos":                    "parágrafos",
@@ -1066,7 +1032,6 @@ const PASQUALI_PT_BR = {
   "cafes":                                     "cafés",
   "sofa":                                      "sofá",
   "sofas":                                     "sofás",
-  "bebe":                                      "bebê",
   "bebes":                                     "bebês",
   "cha":                                       "chá",
   "acucar":                                    "açúcar",
@@ -1108,7 +1073,6 @@ const PASQUALI_PT_BR = {
   "ingenuas":                                  "ingênuas",
 
   // ── Pronomes e palavras funcionais / Pronouns and functional words ───────
-  "nos":                                       "nós",
   "ai":                                        "aí",
   "la":                                        "lá",
   "ca":                                        "cá",
@@ -1128,7 +1092,6 @@ const PASQUALI_PT_BR = {
   "detem":                                     "detém",
   "obtem":                                     "obtém",
   "poem":                                      "põem",
-  "vem":                                       "vêm",
 
   // ── Ótimo / Péssimo / Máximo / Mínimo / Último / Próximo ────────────────
   "otimo":                                     "ótimo",
@@ -1532,20 +1495,16 @@ const PASQUALI_PT_BR = {
   "presidios":                                 "presídios",
   "municipio":                                 "município",
   "municipios":                                "municípios",
-  "principio":                                 "princípio",
   "principios":                                "princípios",
   "sacrificios":                               "sacrifícios",
   "simposio":                                  "simpósio",
   "simposios":                                 "simpósios",
   "proposito":                                 "propósito",
   "propositos":                                "propósitos",
-  "deposito":                                  "depósito",
   "depositos":                                 "depósitos",
 
   // ── Substantivos em -ólogo/-álogo ────────────────────────────────────────
-  "dialogo":                                   "diálogo",
   "dialogos":                                  "diálogos",
-  "catalogo":                                  "catálogo",
   "catalogos":                                 "catálogos",
   "prologo":                                   "prólogo",
   "prologos":                                  "prólogos",
@@ -1585,9 +1544,7 @@ const PASQUALI_PT_BR = {
 
   // ── Substantivos em -ário/-ória ───────────────────────────────────────────
   "secretario":                                "secretário",
-  "secretaria":                                "secretária",
   "secretarios":                               "secretários",
-  "secretarias":                               "secretárias",
   "centenario":                                "centenário",
   "aniversario":                               "aniversário",
   "aniversarios":                              "aniversários",
@@ -1676,5 +1633,78 @@ const PASQUALI_PT_BR = {
   "infaliveis":                                "infalíveis",
   "inflamavel":                                "inflamável",
   "inflamaveis":                               "inflamáveis",
+
+};
+
+// Pares ambíguos PT-BR: a forma sem acento é também uma palavra válida com
+// significado diferente. Estas entradas NÃO são auto-corrigidas (sem highlight
+// automático), mas aparecem como sugestão no menu de contexto (botão direito).
+const PASQUALI_PT_BR_AMBIGUOUS = {
+
+  // ── Formas verbais x substantivos ────────────────────────────────────────────
+  "ira":          "irá",          // ira (cólera) ≠ irá (fut. de ir)
+  "vira":         "virá",         // vira (vira-lata / 3ª sg. de virar) ≠ virá (fut. de vir)
+  "vem":          "vêm",          // ele vem (3ª sg.) ≠ eles vêm (3ª pl.)
+  "nos":          "nós",          // nos (clítico: nos ajudou) ≠ nós (pronome sujeito)
+
+  // ── Substantivos com dupla leitura ──────────────────────────────────────────
+  "pais":         "país",         // pais (pai + mãe) ≠ país (nação)
+  "marco":        "março",        // marco (referência / moeda) ≠ março (mês)
+  "bebe":         "bebê",         // bebe (3ª sg. de beber) ≠ bebê (infant)
+  "ancora":       "âncora",       // ancora (3ª sg. de ancorar) ≠ âncora (nave)
+  "faca":         "faça",         // faca (faca de cozinha) ≠ faça (imp. de fazer)
+  "manha":        "manhã",        // manha (astúcia / birra) ≠ manhã (período do dia)
+
+  // ── 1ª sg. presente x substantivo/adjetivo ───────────────────────────────────
+  "animo":        "ânimo",        // animo (1ª sg. de animar) ≠ ânimo (disposição)
+  "calculo":      "cálculo",      // calculo (1ª sg. de calcular) ≠ cálculo
+  "capitulo":     "capítulo",     // capitulo (1ª sg. de capitular) ≠ capítulo
+  "catalogo":     "catálogo",     // catalogo (1ª sg. de catalogar) ≠ catálogo
+  "circulo":      "círculo",      // circulo (1ª sg. de circular) ≠ círculo
+  "comercio":     "comércio",     // comercio (1ª sg. de comerciar) ≠ comércio
+  "credito":      "crédito",      // credito (1ª sg. de creditar) ≠ crédito
+  "critico":      "crítico",      // critico (1ª sg. de criticar) ≠ crítico
+  "deposito":     "depósito",     // deposito (1ª sg. de depositar) ≠ depósito
+  "diagnostico":  "diagnóstico",  // diagnostico (1ª sg. de diagnosticar) ≠ diagnóstico
+  "dialogo":      "diálogo",      // dialogo (1ª sg. de dialogar) ≠ diálogo
+  "especifico":   "específico",   // especifico (1ª sg. de especificar) ≠ específico
+  "estimulo":     "estímulo",     // estimulo (1ª sg. de estimular) ≠ estímulo
+  "habito":       "hábito",       // habito (1ª sg. de habitar) ≠ hábito
+  "indicio":      "indício",      // indicio (1ª sg. de indiciar) ≠ indício
+  "medico":       "médico",       // medico (1ª sg. de medicar) ≠ médico
+  "modulo":       "módulo",       // modulo (1ª sg. de modular) ≠ módulo
+  "numero":       "número",       // numero (1ª sg. de numerar) ≠ número
+  "oficio":       "ofício",       // oficio (1ª sg. de oficiar) ≠ ofício
+  "pratico":      "prático",      // pratico (1ª sg. de praticar) ≠ prático
+  "principio":    "princípio",    // principio (1ª sg. de principiar) ≠ princípio
+  "pronostico":   "prognóstico",  // pronostico (1ª sg. de pronosticar) ≠ prognóstico
+  "publico":      "público",      // publico (1ª sg. de publicar) ≠ público
+  "titulo":       "título",       // titulo (1ª sg. de titular) ≠ título
+  "vicio":        "vício",        // vicio (1ª sg. de viciar) ≠ vício
+  "vinculo":      "vínculo",      // vinculo (1ª sg. de vincular) ≠ vínculo
+
+  // ── 3ª sg. presente x substantivo/adjetivo ───────────────────────────────────
+  "beneficio":    "benefício",    // beneficio (3ª sg. de beneficiar) ≠ benefício
+  "especifica":   "específica",   // ela especifica (3ª sg.) ≠ específica (adj.)
+  "medica":       "médica",       // ela medica (3ª sg.) ≠ médica (substantivo)
+  "publica":      "pública",      // ela publica (3ª sg.) ≠ pública (adj.)
+  "critica":      "crítica",      // ela critica (3ª sg.) ≠ crítica (substantivo/adj.)
+  "pratica":      "prática",      // ela pratica (3ª sg.) ≠ prática (substantivo)
+  "fabrica":      "fábrica",      // ela fabrica (3ª sg.) ≠ fábrica (substantivo)
+  "replica":      "réplica",      // ela replica (3ª sg.) ≠ réplica (cópia/resposta)
+  "opera":        "ópera",        // ela opera (3ª sg.) ≠ ópera (gênero musical)
+  "formula":      "fórmula",      // ela formula (3ª sg.) ≠ fórmula (substantivo)
+  "integra":      "íntegra",      // ela integra (3ª sg.) ≠ íntegra (adj. completo/a)
+  "historia":     "história",     // ela historia (3ª sg. de historiar) ≠ história
+  "area":         "área",         // ela area (3ª sg. de arear) ≠ área (superfície)
+  "peca":         "peça",         // ela peca (3ª sg. de pecar) ≠ peça (parte/pedido)
+
+  // ── Formas verbais (singular/plural) ─────────────────────────────────────────
+  "tem":          "têm",          // ele tem (3ª sg.) ≠ eles têm (3ª pl.)
+
+  // ── Substantivos movidos do dicionário principal ──────────────────────────────
+  "musica":       "música",       // musica (3ª sg. de musicar) ≠ música (substantivo)
+  "secretaria":   "secretária",   // secretaria (departamento) ≠ secretária (pessoa)
+  "secretarias":  "secretárias",  // secretarias (departamentos) ≠ secretárias (pessoas)
 
 };

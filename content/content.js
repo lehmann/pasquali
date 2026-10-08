@@ -1,10 +1,11 @@
-/* global PASQUALI_PT_BR, PASQUALI_DE_DE */
+/* global PASQUALI_PT_BR, PASQUALI_DE_DE, PASQUALI_PT_BR_AMBIGUOUS, PASQUALI_DE_DE_AMBIGUOUS */
 
 // ── State ────────────────────────────────────────────────────────────────────
 
 let isEnabled = true;
 let activeLanguages = ['pt_BR', 'de_DE'];
 let dictionary = {};
+let ambiguousDictionary = {};
 
 const SKIP_TAGS = new Set(['SCRIPT', 'STYLE', 'CODE', 'PRE', 'KBD', 'SAMP', 'MATH', 'SVG',
   'NOSCRIPT', 'TEMPLATE', 'TEXTAREA', 'INPUT', 'SELECT']);
@@ -14,6 +15,7 @@ const SKIP_TAGS = new Set(['SCRIPT', 'STYLE', 'CODE', 'PRE', 'KBD', 'SAMP', 'MAT
 // Keys where stripping ae→a / oe→o / ue→u would produce a different valid German word.
 const DE_UMLAUT_EXPANSION_SKIP = new Set([
   // ae→a conflicts
+  'kampfer',  // Kampfer = campher (vs. Kämpfer = fighter) — see AMBIGUOUS
   'andern',   // andere (pl dative)
   'backt',    // alt. form of bäckt
   'bar',      // Bar = pub/cash
@@ -90,9 +92,14 @@ function expandDeUmlautVariants() {
 
 function buildDictionary() {
   dictionary = {};
-  if (activeLanguages.includes('pt_BR')) Object.assign(dictionary, PASQUALI_PT_BR);
+  ambiguousDictionary = {};
+  if (activeLanguages.includes('pt_BR')) {
+    Object.assign(dictionary, PASQUALI_PT_BR);
+    Object.assign(ambiguousDictionary, PASQUALI_PT_BR_AMBIGUOUS);
+  }
   if (activeLanguages.includes('de_DE')) {
     Object.assign(dictionary, PASQUALI_DE_DE);
+    Object.assign(ambiguousDictionary, PASQUALI_DE_DE_AMBIGUOUS);
     expandDeUmlautVariants();
   }
 }
@@ -111,6 +118,23 @@ function applyCapitalization(original, correction) {
 function lookupWord(word) {
   if (!word || word.length < 2) return null;
   const canonical = dictionary[normalize(word)];
+  if (!canonical) return null;
+  const correction = applyCapitalization(word, canonical);
+  return word === correction ? null : correction;
+}
+
+function lookupWordAny(word) {
+  if (!word || word.length < 2) return null;
+  const key = normalize(word);
+  const canonical = dictionary[key] ?? ambiguousDictionary[key];
+  if (!canonical) return null;
+  const correction = applyCapitalization(word, canonical);
+  return word === correction ? null : correction;
+}
+
+function lookupAmbiguous(word) {
+  if (!word || word.length < 2) return null;
+  const canonical = ambiguousDictionary[normalize(word)];
   if (!canonical) return null;
   const correction = applyCapitalization(word, canonical);
   return word === correction ? null : correction;
@@ -160,6 +184,7 @@ let cssHighlightTimer = null;
 function rebuildCSSHighlights() {
   if (!CSS.highlights) return;
   const ranges = [];
+  const ambiguousRanges = [];
   for (const root of frameworkRoots) {
     if (!root.isConnected) { frameworkRoots.delete(root); continue; }
     if (!isEnabled) continue;
@@ -179,11 +204,14 @@ function rebuildCSSHighlights() {
       const wordRe = /\p{L}+/gu;
       let match;
       while ((match = wordRe.exec(text)) !== null) {
-        if (lookupWord(match[0])) {
+        const word = match[0];
+        const isNormal = !!lookupWord(word);
+        const isAmbiguous = !isNormal && !!lookupAmbiguous(word);
+        if (isNormal || isAmbiguous) {
           const range = new Range();
           range.setStart(node, match.index);
-          range.setEnd(node, match.index + match[0].length);
-          ranges.push(range);
+          range.setEnd(node, match.index + word.length);
+          (isNormal ? ranges : ambiguousRanges).push(range);
         }
       }
     }
@@ -192,6 +220,11 @@ function rebuildCSSHighlights() {
     CSS.highlights.set('pasquali-correction', new Highlight(...ranges));
   } else {
     CSS.highlights.delete('pasquali-correction');
+  }
+  if (ambiguousRanges.length > 0) {
+    CSS.highlights.set('pasquali-ambiguous', new Highlight(...ambiguousRanges));
+  } else {
+    CSS.highlights.delete('pasquali-ambiguous');
   }
 }
 
@@ -366,7 +399,7 @@ let isModifying = false;
 
 function clearHighlights(root) {
   isModifying = true;
-  root.querySelectorAll('.pasquali-highlight').forEach(span => {
+  root.querySelectorAll('.pasquali-highlight, .pasquali-highlight-ambiguous').forEach(span => {
     span.replaceWith(document.createTextNode(span.textContent));
   });
   root.normalize();
@@ -385,9 +418,10 @@ function processTextNode(textNode) {
   while ((match = wordRe.exec(text)) !== null) {
     const word = match[0];
     const correction = lookupWord(word);
-    if (correction) {
+    const ambiguousCorrection = correction ? null : lookupAmbiguous(word);
+    if (correction || ambiguousCorrection) {
       if (match.index > lastIndex) segments.push({ type: 't', v: text.slice(lastIndex, match.index) });
-      segments.push({ type: 'h', v: word, correction });
+      segments.push({ type: correction ? 'h' : 'a', v: word, correction: correction || ambiguousCorrection });
       lastIndex = match.index + word.length;
       hasMatch = true;
     }
@@ -402,7 +436,7 @@ function processTextNode(textNode) {
       frag.appendChild(document.createTextNode(seg.v));
     } else {
       const span = document.createElement('span');
-      span.className = 'pasquali-highlight';
+      span.className = seg.type === 'h' ? 'pasquali-highlight' : 'pasquali-highlight-ambiguous';
       span.dataset.correction = seg.correction;
       span.textContent = seg.v;
       frag.appendChild(span);
@@ -418,7 +452,7 @@ function hasCorrectableContent(root) {
   const wordRe = /\p{L}+/gu;
   let match;
   while ((match = wordRe.exec(root.textContent)) !== null) {
-    if (lookupWord(match[0])) return true;
+    if (lookupWord(match[0]) || lookupAmbiguous(match[0])) return true;
   }
   return false;
 }
@@ -439,7 +473,7 @@ function scanContentEditable(root) {
     return;
   }
 
-  const hasHighlights = !!root.querySelector('.pasquali-highlight');
+  const hasHighlights = !!root.querySelector('.pasquali-highlight, .pasquali-highlight-ambiguous');
   if (!hasHighlights && !hasCorrectableContent(root)) return;
 
   const caret = saveCaret(root);
@@ -451,6 +485,7 @@ function scanContentEditable(root) {
       while (el && el !== root) {
         if (SKIP_TAGS.has(el.tagName) ||
             el.classList.contains('pasquali-highlight') ||
+            el.classList.contains('pasquali-highlight-ambiguous') ||
             el.id === 'pasquali-menu') return NodeFilter.FILTER_REJECT;
         el = el.parentElement;
       }
@@ -539,8 +574,8 @@ function getEditableElements(root = document) {
 document.addEventListener('contextmenu', e => {
   if (!isEnabled) return;
 
-  // 1. Right-click on a span we injected.
-  const span = e.target.closest?.('.pasquali-highlight');
+  // 1. Right-click on a span we injected (normal or ambiguous).
+  const span = e.target.closest?.('.pasquali-highlight, .pasquali-highlight-ambiguous');
   if (span) {
     e.preventDefault();
     e.stopPropagation();
@@ -567,7 +602,7 @@ document.addEventListener('contextmenu', e => {
   if (ce) {
     const result = getWordAtCursorCE(ce);
     if (!result) return;
-    const correction = lookupWord(result.word);
+    const correction = lookupWordAny(result.word);
     if (!correction) return;
     e.preventDefault();
     e.stopPropagation();
@@ -583,7 +618,7 @@ document.addEventListener('contextmenu', e => {
   if (field) {
     const result = getWordAtCursorTA(field);
     if (!result) return;
-    const correction = lookupWord(result.word);
+    const correction = lookupWordAny(result.word);
     if (!correction) return;
     e.preventDefault();
     e.stopPropagation();
@@ -643,7 +678,10 @@ function applySettings(settings) {
   buildDictionary();
   if (!isEnabled) {
     document.querySelectorAll('[contenteditable]').forEach(clearHighlights);
-    if (CSS.highlights) CSS.highlights.delete('pasquali-correction');
+    if (CSS.highlights) {
+      CSS.highlights.delete('pasquali-correction');
+      CSS.highlights.delete('pasquali-ambiguous');
+    }
   } else {
     rebuildCSSHighlights();
   }
