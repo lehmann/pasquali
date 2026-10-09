@@ -199,7 +199,6 @@ const PASQUALI_PT_BR = {
   "destruicao":                    "destruição",
   "determinacao":                  "determinação",
   "diferencicao":                  "diferenciação",
-  "diferenciacoa":                 "diferenciação",
   "diferenciacao":                 "diferenciação",
   "disposicao":                    "disposição",
   "distribuicao":                  "distribuição",
@@ -409,7 +408,7 @@ const PASQUALI_PT_BR = {
   "amplificacao":                  "amplificação",
   "simplificacao":                 "simplificação",
   "identificacao":                 "identificação",
-  "pronunciacao":                  "pronúncia",
+  "pronunciacao":                  "pronunciação",
   "pronuncia":                     "pronúncia",
   "exercitacao":                   "exercitação",
   "instrucao":                     "instrução",
@@ -599,7 +598,6 @@ const PASQUALI_PT_BR = {
   "acida":                         "ácida",
   "avido":                         "ávido",
   "avida":                         "ávida",
-  "plido":                         "pálido",
   "palido":                        "pálido",
   "palida":                        "pálida",
   "rapido":                        "rápido",
@@ -719,7 +717,6 @@ const PASQUALI_PT_BR = {
   "vicios":                        "vícios",
   "cartorio":                      "cartório",
   "territorio":                    "território",
-  "territories":                   "territórios",
   "territorios":                   "territórios",
   "seculo":                        "século",
   "seculos":                       "séculos",
@@ -752,7 +749,6 @@ const PASQUALI_PT_BR = {
   "disponiveis":                   "disponíveis",
   "sensivel":                      "sensível",
   "sensiveis":                     "sensíveis",
-  "inavelivel":                    "inavelível",
   "confortavel":                   "confortável",
   "confortaveis":                  "confortáveis",
   "saudavel":                      "saudável",
@@ -761,7 +757,6 @@ const PASQUALI_PT_BR = {
   "amigaveis":                     "amigáveis",
   "admiravel":                     "admirável",
   "rentavel":                      "rentável",
-  "estavbel":                      "estável",
   "estavel":                       "estável",
   "estaveis":                      "estáveis",
   "instavel":                      "instável",
@@ -794,7 +789,6 @@ const PASQUALI_PT_BR = {
   "compativel":                    "compatível",
   "compativeis":                   "compatíveis",
   "incompativel":                  "incompatível",
-  "comprensivel":                  "compreensível",
   "compreensivel":                 "compreensível",
   "coerencia":                     "coerência",
   "incoerencia":                   "incoerência",
@@ -850,8 +844,6 @@ const PASQUALI_PT_BR = {
   "crista":                        "cristã",
   "pagao":                         "pagão",
   "pagaos":                        "pagãos",
-  "paga":                          "pagã",
-  "pagans":                        "pagãs",
   "romao":                         "romão",
 
   // ── Palavras frequentes no cotidiano ─────────────────────────────────────
@@ -859,7 +851,6 @@ const PASQUALI_PT_BR = {
   "armazens":                      "armazéns",
   "refem":                         "refém",
   "refens":                        "reféns",
-  "aben":                          "além",
   "obrigatorio":                   "obrigatório",
   "obrigatorios":                  "obrigatórios",
   "obrigatoria":                   "obrigatória",
@@ -1256,10 +1247,6 @@ const PASQUALI_PT_BR = {
   "exotica":                                   "exótica",
   "exoticos":                                  "exóticos",
   "exoticas":                                  "exóticas",
-  "estoico":                                   "estóico",
-  "estoica":                                   "estóica",
-  "estoicos":                                  "estóicos",
-  "estoicas":                                  "estóicas",
   "demografica":                               "demográfica",
   "demograficos":                              "demográficos",
   "demograficas":                              "demográficas",
@@ -1634,6 +1621,54 @@ const PASQUALI_PT_BR = {
   "inflamavel":                                "inflamável",
   "inflamaveis":                               "inflamáveis",
 
+  // ── Pronomes indefinidos e palavras frequentes ───────────────────────────
+  "alguem":                                    "alguém",
+  "ninguem":                                   "ninguém",
+  "tao":                                       "tão",
+  "so":                                        "só",
+  "ola":                                       "olá",
+  "ceu":                                       "céu",
+  "ceus":                                      "céus",
+  "chapeu":                                    "chapéu",
+  "chapeus":                                   "chapéus",
+  "papeis":                                    "papéis",
+  "mae":                                       "mãe",
+  "maes":                                      "mães",
+  "vovo":                                      "vovô",
+  "vovos":                                     "vovôs",
+  "lingua":                                    "língua",
+  "linguas":                                   "línguas",
+  "conteudo":                                  "conteúdo",
+  "conteudos":                                 "conteúdos",
+  "endereco":                                  "endereço",
+  "enderecos":                                 "endereços",
+  "espaco":                                    "espaço",
+  "espacos":                                   "espaços",
+  "gramatica":                                 "gramática",
+  "informatica":                               "informática",
+  "avancado":                                  "avançado",
+  "avancada":                                  "avançada",
+  "avancados":                                 "avançados",
+  "avancadas":                                 "avançadas",
+  "lancamento":                                "lançamento",
+  "lancamentos":                               "lançamentos",
+  "comecar":                                   "começar",
+  "bilhao":                                    "bilhão",
+  "bilhoes":                                   "bilhões",
+  "milhao":                                    "milhão",
+  "milhoes":                                   "milhões",
+  "obvio":                                     "óbvio",
+  "obvia":                                     "óbvia",
+  "obvios":                                    "óbvios",
+  "obvias":                                    "óbvias",
+  "vitima":                                    "vítima",
+  "vitimas":                                   "vítimas",
+  "anonimo":                                   "anônimo",
+  "anonima":                                   "anônima",
+  "sinonimo":                                  "sinônimo",
+  "sinonimos":                                 "sinônimos",
+  "podera":                                    "poderá",
+
 };
 
 // Pares ambíguos PT-BR: a forma sem acento é também uma palavra válida com
@@ -1654,6 +1689,7 @@ const PASQUALI_PT_BR_AMBIGUOUS = {
   "ancora":       "âncora",       // ancora (3ª sg. de ancorar) ≠ âncora (nave)
   "faca":         "faça",         // faca (faca de cozinha) ≠ faça (imp. de fazer)
   "manha":        "manhã",        // manha (astúcia / birra) ≠ manhã (período do dia)
+  "paga":         "pagã",         // paga (3ª sg. de pagar) ≠ pagã (fem. de pagão)
 
   // ── 1ª sg. presente x substantivo/adjetivo ───────────────────────────────────
   "animo":        "ânimo",        // animo (1ª sg. de animar) ≠ ânimo (disposição)
@@ -1701,6 +1737,10 @@ const PASQUALI_PT_BR_AMBIGUOUS = {
 
   // ── Formas verbais (singular/plural) ─────────────────────────────────────────
   "tem":          "têm",          // ele tem (3ª sg.) ≠ eles têm (3ª pl.)
+
+  // ── Demonstrativos x formas verbais ──────────────────────────────────────────
+  "esta":         "está",         // esta (demonstrativo: esta casa) ≠ está (estar, 3ª sg.)
+  "estas":        "estás",        // estas (demonstrativo: estas casas) ≠ estás (estar, 2ª sg.)
 
   // ── Substantivos movidos do dicionário principal ──────────────────────────────
   "musica":       "música",       // musica (3ª sg. de musicar) ≠ música (substantivo)
